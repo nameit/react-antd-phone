@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd-mobile';
-import Echarts from 'echarts';
-
+import ReactEcharts from 'echarts-for-react';
 import Header from '../components/Header';
 
 class App extends Component {
@@ -10,12 +9,8 @@ class App extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.initCharts();
-  }
-
-  initCharts() {
-    const option = {
+  getOption() {
+    return {
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -28,8 +23,6 @@ class App extends Component {
         type: 'line'
       }]
     };
-    Echarts.init(document.getElementById('chart'));
-    Echarts.setOption(option);
   }
 
   render() {
@@ -39,7 +32,7 @@ class App extends Component {
         handleBack={() => console.log('返回')}
         rightContent={[<Icon type='search' key='0' />]}
       />
-      <div id='chart' style={{ width: '100%', height: '220px' }}></div>
+      <ReactEcharts style={{ height: '200px' }} option={this.getOption()} />
     </div>;
   }
 }
