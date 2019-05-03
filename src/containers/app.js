@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import { Icon } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
+
 import Header from '../components/Header';
+import Utils from '../utils';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      options: {}
+    };
   }
 
-  getOption() {
-    return {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
-      }]
-    };
+  componentDidMount() {
+    Utils.getRequest('/users').then((response) => {
+      console.log(response.data);
+      this.setState({
+        options: response.data
+      });
+    });
   }
 
   render() {
@@ -32,7 +30,7 @@ class App extends Component {
         handleBack={() => console.log('返回')}
         rightContent={[<Icon type='search' key='0' />]}
       />
-      <ReactEcharts style={{ height: '200px' }} option={this.getOption()} />
+      <ReactEcharts style={{ height: '200px' }} option={this.state.options} />
     </div>;
   }
 }
