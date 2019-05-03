@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.bundle.js'
   },
+  devtool: 'source-map',
   mode: 'development',
   devServer: {
     port: 3008,
