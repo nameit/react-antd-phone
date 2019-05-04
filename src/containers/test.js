@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Tabs } from 'antd-mobile';
+import { Tabs } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
 
 import Header from '../components/Header';
@@ -51,7 +51,7 @@ class App extends Component {
         <Header
           title="发票管理"
           handleBack={() => console.log('返回')}
-          rightContent={[<Icon type='search' key='0' />]}
+          rightContent={<span onClick={() => this.props.history.push('/rank')}>查看排名</span>}
         />
         <ReactEcharts style={{ height: '200px' }} option={this.state.options1} />
         <Tabs tabs={tabs}

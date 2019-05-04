@@ -17,7 +17,7 @@ class Header extends Component {
 
   render() {
     return <NavBar
-      mode='light'
+      className={this.props.theme || 'default'}
       icon={<Icon type="left" />}
       onLeftClick={this.handleBack}
       rightContent={this.props.rightContent}
