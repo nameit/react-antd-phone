@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
+import PropTypes from 'prop-types';
 
 class Header extends Component {
   constructor(props) {
@@ -26,3 +27,9 @@ class Header extends Component {
 }
 
 export default Header;
+
+Header.propTypes = {
+  handleBack: PropTypes.func,
+  theme: PropTypes.string,
+  title: PropTypes.string
+};

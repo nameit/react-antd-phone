@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class App extends Component {
+class Guide extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +15,9 @@ class App extends Component {
     return (
       <ul>
         <li>
+          <Link to='/example'>例子</Link>
+        </li>
+        <li>
           <Link to='/invoice'>发票管理</Link>
         </li>
         <li>
@@ -25,4 +28,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Guide;

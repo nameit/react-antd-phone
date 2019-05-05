@@ -11,7 +11,7 @@ const tabs = [
   { title: 'Third Tab' }
 ];
 
-class Invoice extends Component {
+class Example extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,4 +95,4 @@ class Invoice extends Component {
   }
 }
 
-export default Invoice;
+export default Example;
