@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
+import asyncComponent from '../components/async-component';
+
 import Index from './test';
-import Invoice from './invoice';
-import KeyQuota from './key-quota';
-import Rank from './rank';
+
+const Rank = asyncComponent(() => import(/* webpackChunkName: 'Rank' */ './rank'));
+const KeyQuota = asyncComponent(() => import(/* webpackChunkName: 'KeyQuota' */ './key-quota'));
+const Invoice = asyncComponent(() => import(/* webpackChunkName: 'Invoice' */ './invoice'));
 
 class App extends Component {
   constructor(props) {

@@ -3,13 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 /*** happypack modules start  ***/
 const HappyPack = require('happypack');
 const os = require('os');
-<<<<<<< HEAD
 /*** happypack modules end  ***/
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-=======
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-/*** happypack modules end  ***/
->>>>>>> 131cfaa957d496a63206168f7596bb6b0e54afe9
 
 module.exports = {
   entry: {

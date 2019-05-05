@@ -12,7 +12,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'index.bundle.js'
+    filename: 'index.bundle.js',
+    chunkFilename: 'js/[name].[chunkhash:8].bundle.js'
   },
   devtool: 'source-map',
   mode: 'production',
