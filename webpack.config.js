@@ -1,5 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+/*** happypack modules start  ***/
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+/*** happypack modules end  ***/
 
 module.exports = {
   entry: {
@@ -19,15 +24,7 @@ module.exports = {
     rules:[
       {
         test: /\.jsx?$/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: [["import", { libraryName: "antd-mobile", style: "css" }], 'syntax-dynamic-import']
-          }
-        }, {
-          loader: 'eslint-loader'
-        }]
+        use: 'happypack/loader'
       },
       {
         test: /\.css$/,
@@ -48,7 +45,7 @@ module.exports = {
             plugins: [require('autoprefixer')]
           }
         }, 'sass-loader']
-      },
+      }
     ]
   },
   plugins: [
@@ -56,6 +53,19 @@ module.exports = {
       template: 'index.html',
       filename: 'index.html',
       title: '新疆征管三期app'
+    }),
+    new HappyPack({
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: [["import", { libraryName: "antd-mobile", style: "css" }], 'syntax-dynamic-import']
+        }
+      }, {
+        loader: 'eslint-loader'
+      }],
+      threadPool: happyThreadPool,
+      threads: 4
     })
   ]
 }
