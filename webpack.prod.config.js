@@ -1,5 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const scssMini = new MiniCssExtractPlugin()
 
 module.exports = {
   entry: {
@@ -27,7 +32,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', {
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader', {
           loader: 'postcss-loader',
           options: {
             ident: 'postcss',
@@ -37,7 +46,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', {
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader',{
           loader: 'postcss-loader',
           options: {
             ident: 'postcss',
@@ -52,6 +65,10 @@ module.exports = {
       template: 'index.html',
       filename: 'index.html',
       title: '新疆征管三期app'
-    })
-  ]
+    }),
+    new MiniCssExtractPlugin()
+  ],
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+  }
 }
