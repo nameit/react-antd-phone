@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Tabs } from 'antd-mobile';
 import ReactEcharts from 'echarts-for-react';
+import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
+// import { changeColor } from '../actions/index';
 import Utils from '../utils';
 
 const tabs = [
@@ -22,6 +26,13 @@ class Example extends Component {
         tbody: []
       }
     };
+    this.handleSwitchColor = this.handleSwitchColor.bind(this, 'red');
+  }
+
+  handleSwitchColor(color) {
+    if (this.props.changeColor) {
+      this.props.changeColor(color);
+    }
   }
 
   componentDidMount() {
@@ -46,13 +57,16 @@ class Example extends Component {
   }
 
   render() {
+    console.log('this.props', this.props.themeColor);
     return (
       <div>
         <Header
           title="发票管理"
           rightContent={<span onClick={() => this.props.history.push('/rank')}>查看排名</span>}
           {...this.props}
+          theme={this.props.themeColor}
         />
+        <div onClick={this.handleSwitchColor}>change color</div>
         <ReactEcharts style={{ height: '200px' }} option={this.state.options1} />
         <Tabs tabs={tabs}
           initalPage={'t2'}
@@ -95,4 +109,25 @@ class Example extends Component {
   }
 }
 
-export default Example;
+const mapStateToProps = state => (
+  {
+    themeColor: state.themeColor
+  }
+);
+
+// const mapDispatchToProps = dispatch => bindActionCreators({ changeColor }, dispatch);
+const mapDispatchToProps = dispatch => (
+  {
+    changeColor: (color) => {
+      dispatch({ type: 'CHANGE_COLOR', themeColor: color });
+    }
+  }
+);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Example);
+
+Example.propTypes = {
+  themeColor: PropTypes.string,
+  changeColor: PropTypes.func
+};
